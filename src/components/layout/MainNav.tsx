@@ -10,13 +10,13 @@ export default function MainNav() {
   return (
     <nav>
       <h2 className='sr-only'>Main nav</h2>
-      <ul className='flex gap-4 font-bold uppercase'>
+      <ul className='flex gap-4 uppercase'>
         {navItems.map((item, i) => (
           <li key={i}>
             <ActiveLink
               href={item.href}
-              className='bg-gray-300 px-3 py-1 rounded-full'
-              activeClassName='bg-gray-900 text-white'
+              className='bg-white border-gray-200 border px-3 py-1 rounded-full hover:border-gray-500 transition-colors'
+              activeClassName='border-gray-500'
             >
               {item.label}
             </ActiveLink>
