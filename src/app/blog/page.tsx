@@ -1,6 +1,6 @@
 import PageHeader from '@/components/core/PageHeader';
-import Link from 'next/link';
 import { routes } from '@/routes';
+import Link from 'next/link';
 
 export default function Blog() {
   return (

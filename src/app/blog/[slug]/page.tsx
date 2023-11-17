@@ -1,6 +1,5 @@
-import { routes } from '@/routes';
-
 import PageHeader from '@/components/core/PageHeader';
+import { routes } from '@/routes';
 
 export default function Blog({ params }: { params: { slug: string } }) {
   return (
