@@ -10,8 +10,8 @@ export default function MainNav() {
           <li key={i}>
             <ActiveLink
               href={`/${item.slug}`}
-              className='rounded-full border border-gray-200 bg-white px-12 py-4 transition-colors hover:border-gray-500'
-              activeClassName='border-gray-500'
+              className='rounded-full border border-gray-200 px-12 py-4 transition-colors hover:border-gray-500'
+              activeClassName='bg-black text-white border-black'
             >
               {item.label}
             </ActiveLink>
