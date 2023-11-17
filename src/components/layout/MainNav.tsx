@@ -1,5 +1,5 @@
-import ActiveLink from '@/components/core/ActiveLink';
 import { routes } from '@/routes';
+import ActiveLink from '@/components/core/ActiveLink';
 
 export default function MainNav() {
   return (
