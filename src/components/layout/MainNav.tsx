@@ -1,21 +1,16 @@
 import ActiveLink from '@/components/core/ActiveLink';
-
-const navItems = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Blog', href: '/blog' },
-];
+import { routes } from '@/routes';
 
 export default function MainNav() {
   return (
     <nav>
       <h2 className='sr-only'>Main nav</h2>
       <ul className='flex gap-16 uppercase'>
-        {navItems.map((item, i) => (
+        {routes.main.map((item, i) => (
           <li key={i}>
             <ActiveLink
-              href={item.href}
-              className='bg-white border-gray-200 border px-12 py-4 rounded-full hover:border-gray-500 transition-colors'
+              href={`/${item.slug}`}
+              className='rounded-full border border-gray-200 bg-white px-12 py-4 transition-colors hover:border-gray-500'
               activeClassName='border-gray-500'
             >
               {item.label}
