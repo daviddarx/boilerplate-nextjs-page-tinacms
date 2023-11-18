@@ -25,7 +25,6 @@ export default defineConfig({
         name: 'page',
         path: 'content/pages',
         fields: [
-          { label: 'Slug', name: 'slug', type: 'string', required: true },
           {
             label: 'Title',
             name: 'title',
@@ -167,12 +166,6 @@ export default defineConfig({
             name: 'title',
             type: 'string',
             isTitle: true,
-            required: true,
-          },
-          {
-            label: 'Slug',
-            name: 'slug',
-            type: 'string',
             required: true,
           },
         ],

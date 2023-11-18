@@ -1,5 +1,5 @@
 ---
-title: First post
+title: Post 1
 category: content/categories/Category-1.md
 image: /uploads/test-image.png
 options:
@@ -13,4 +13,4 @@ objects:
     description: Object 1
 ---
 
-I am the first post
+I am the first **post** really, really!
