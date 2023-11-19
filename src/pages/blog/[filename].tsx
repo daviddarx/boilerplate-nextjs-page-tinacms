@@ -1,3 +1,4 @@
+import Layout from '@/components/layout/Layout';
 import client from '@/tina/client';
 import type { Post } from '@/tina/types';
 import { InferGetStaticPropsType } from 'next';
@@ -6,10 +7,10 @@ import { TinaMarkdown } from 'tinacms/dist/rich-text';
 
 const TestComponent = ({ item }: { item: Post }) => {
   return (
-    <div>
+    <Layout>
       <h1>{item.title}</h1>
       <TinaMarkdown content={item.body} />
-    </div>
+    </Layout>
   );
 };
 
@@ -39,11 +40,11 @@ export const getStaticProps = async ({ params }: { params: { filename: string } 
 export const getStaticPaths = async () => {
   const postData = await client.queries.postConnection();
   const edges = postData?.data?.postConnection?.edges || [];
-  console.log('edge post', edges);
 
-  const categoryData = await client.queries.categoryConnection();
-  const categoryEdges = categoryData.data.categoryConnection.edges;
-  console.log('edge cat', categoryEdges);
+  // REMINDER AUTRE CATEGORIES
+  // const categoryData = await client.queries.categoryConnection();
+  // const categoryEdges = categoryData.data.categoryConnection.edges;
+
   return {
     paths: edges.map((edge) => ({
       params: { filename: edge?.node?._sys.filename || '' },
