@@ -1,5 +1,5 @@
 ---
-title: Post 1
+title: First post omg
 category: content/categories/Category-1.md
 image: /uploads/test-image.png
 options:
