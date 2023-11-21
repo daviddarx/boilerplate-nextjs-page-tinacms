@@ -1,5 +1,13 @@
 import { defineConfig } from 'tinacms';
 
+const slugify = (value = 'no-value') => {
+  return `${value
+    .toLowerCase()
+    .replace(/ /g, '-')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')}`;
+};
+
 // Your hosting provider likely exposes this as an environment variable
 const branch = process.env.HEAD || process.env.VERCEL_GIT_COMMIT_REF || 'main';
 
@@ -39,6 +47,34 @@ export default defineConfig({
             isBody: true,
           },
         ],
+        ui: {
+          filename: {
+            slugify: (values) => {
+              return slugify(values.title);
+            },
+          },
+        },
+      },
+      {
+        label: 'Categories',
+        name: 'category',
+        path: 'content/categories',
+        fields: [
+          {
+            label: 'Title',
+            name: 'title',
+            type: 'string',
+            isTitle: true,
+            required: true,
+          },
+        ],
+        ui: {
+          filename: {
+            slugify: (values) => {
+              return slugify(values.title);
+            },
+          },
+        },
       },
       {
         label: 'Posts',
@@ -152,23 +188,13 @@ export default defineConfig({
           },
         ],
         ui: {
-          // This is an DEMO router. You can remove this to fit your site
           router: ({ document }) => `/blog/${document._sys.filename}`,
-        },
-      },
-      {
-        label: 'Categories',
-        name: 'category',
-        path: 'content/categories',
-        fields: [
-          {
-            label: 'Title',
-            name: 'title',
-            type: 'string',
-            isTitle: true,
-            required: true,
+          filename: {
+            slugify: (values) => {
+              return slugify(values.title);
+            },
           },
-        ],
+        },
       },
     ],
   },
