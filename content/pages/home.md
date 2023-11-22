@@ -1,6 +1,5 @@
 ---
-slug: home
 title: Home
 ---
 
-This is the home page
+This is the **home** page
