@@ -7,10 +7,10 @@ import { TinaMarkdown } from 'tinacms/dist/rich-text';
 
 const TestComponent = ({ item }: { item: Post }) => {
   return (
-    <Layout>
+    <div>
       <h1>{item.title}</h1>
       <TinaMarkdown content={item.body} />
-    </Layout>
+    </div>
   );
 };
 
@@ -22,14 +22,17 @@ export default function BlogPage(props: InferGetStaticPropsType<typeof getStatic
   });
   const post = data.post as Post;
 
-  return <TestComponent item={post} />;
+  return (
+    <Layout>
+      <TestComponent item={post} />
+    </Layout>
+  );
 }
 
 export const getStaticProps = async ({ params }: { params: { filename: string } }) => {
   const tinaProps = await client.queries.post({
     relativePath: `${params.filename}.md`,
   });
-
   return {
     props: {
       ...tinaProps,
@@ -38,12 +41,8 @@ export const getStaticProps = async ({ params }: { params: { filename: string } 
 };
 
 export const getStaticPaths = async () => {
-  const postData = await client.queries.postConnection();
-  const edges = postData?.data?.postConnection?.edges || [];
-
-  // REMINDER AUTRE CATEGORIES
-  // const categoryData = await client.queries.categoryConnection();
-  // const categoryEdges = categoryData.data.categoryConnection.edges;
+  const data = await client.queries.postConnection();
+  const edges = data?.data?.postConnection?.edges || [];
 
   return {
     paths: edges.map((edge) => ({
