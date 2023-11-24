@@ -5,6 +5,7 @@ const slugify = (value = 'no-value') => {
     .toLowerCase()
     .replace(/ /g, '-')
     .normalize('NFD')
+    .replace(/[^\w\s-]/g, '')
     .replace(/[\u0300-\u036f]/g, '')}`;
 };
 
