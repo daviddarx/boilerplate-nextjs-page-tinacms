@@ -13,7 +13,7 @@ const slugify = (value = 'no-value') => {
 const branch = process.env.HEAD || process.env.VERCEL_GIT_COMMIT_REF || 'main';
 
 export default defineConfig({
-  branch,
+  branch: '',
   clientId: '5ba0fc2c-2880-412a-95f3-0663a036609c', // Get this from tina.io
   token: 'afdf7366a125c0c80c6de581bf5798d93084d3a8', // Get this from tina.io
 
@@ -33,6 +33,7 @@ export default defineConfig({
         label: 'Pages',
         name: 'page',
         path: 'content/pages',
+        format: 'md',
         fields: [
           {
             label: 'Title',
@@ -60,6 +61,7 @@ export default defineConfig({
         label: 'Categories',
         name: 'category',
         path: 'content/categories',
+        format: 'md',
         fields: [
           {
             label: 'Title',
@@ -81,6 +83,7 @@ export default defineConfig({
         label: 'Posts',
         name: 'post',
         path: 'content/posts',
+        format: 'md',
         defaultItem: {
           title: 'Default title',
         },
