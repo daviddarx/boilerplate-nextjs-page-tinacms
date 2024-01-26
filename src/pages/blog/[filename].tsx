@@ -24,6 +24,7 @@ export default function BlogPage(props: InferGetStaticPropsType<typeof getStatic
 
   return (
     <Layout>
+      Test 01
       <TestComponent item={post} />
     </Layout>
   );
@@ -37,6 +38,7 @@ export const getStaticProps = async ({ params }: { params: { filename: string } 
     props: {
       ...tinaProps,
     },
+    revalidate: 10,
   };
 };
 
@@ -48,6 +50,6 @@ export const getStaticPaths = async () => {
     paths: edges.map((edge) => ({
       params: { filename: edge?.node?._sys.filename || '' },
     })),
-    fallback: false,
+    fallback: 'blocking',
   };
 };
