@@ -13,10 +13,6 @@ export default function PageComponent({
   postsProps?: PostsResult;
   filterProps?: PostsFilter[];
 }) {
-  console.log('page', pageProps);
-  console.log('posts', postsProps);
-  console.log('filter', filterProps);
-
   return (
     <Layout>
       <Page pageProps={pageProps} postsProps={postsProps} filterProps={filterProps} />
@@ -39,7 +35,6 @@ export const getStaticProps = async ({ params }: { params: { slug?: string[] } }
       (block) => block?.__typename === 'PageBlocksPostList',
     );
   } catch (error) {
-    console.log('error');
     //TODO: manage 404
     return false;
   }
@@ -86,8 +81,6 @@ export const getStaticProps = async ({ params }: { params: { slug?: string[] } }
     });
   }
 
-  console.log('tesst', pageResult);
-
   return {
     props: {
       pageProps: { ...pageResult },
@@ -125,11 +118,6 @@ export const getStaticPaths = async () => {
       }
     }),
   );
-
-  // TODO REMOVE
-  paths.forEach((path) => {
-    console.log(path.params.slug);
-  });
 
   return {
     paths: paths,

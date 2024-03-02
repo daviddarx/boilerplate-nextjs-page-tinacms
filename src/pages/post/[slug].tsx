@@ -36,8 +36,6 @@ export const getStaticPaths = async () => {
     return { params: { slug: edge!.node!._sys.filename } };
   });
 
-  console.log(paths); // TODO REMOVE
-
   return {
     paths: paths,
     fallback: 'blocking',
