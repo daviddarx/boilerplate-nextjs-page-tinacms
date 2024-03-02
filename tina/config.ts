@@ -1,201 +1,287 @@
+import { addImagesDimensions, imageFields, richTextTemplates, slugify } from '../src/utils/tina';
+import { postRoute } from '../src/utils/tina';
 import { defineConfig } from 'tinacms';
 
-const slugify = (value = 'no-value') => {
-  return `${value
-    .toLowerCase()
-    .replace(/ /g, '-')
-    .normalize('NFD')
-    .replace(/[^\w\s-]/g, '')
-    .replace(/[\u0300-\u036f]/g, '')}`;
-};
-
-// Your hosting provider likely exposes this as an environment variable
-const branch = process.env.HEAD || process.env.VERCEL_GIT_COMMIT_REF || 'main';
-
 export default defineConfig({
-  branch,
-  clientId: '5ba0fc2c-2880-412a-95f3-0663a036609c', // Get this from tina.io
-  token: 'afdf7366a125c0c80c6de581bf5798d93084d3a8', // Get this from tina.io
-
+  branch: process.env.HEAD || process.env.VERCEL_GIT_COMMIT_REF || 'main',
+  clientId: process.env.TINA_CLIENT_ID || '',
+  token: process.env.TINA_TOKEN || '',
   build: {
-    outputFolder: 'admin',
     publicFolder: 'public',
+    outputFolder: 'admin',
   },
   media: {
     tina: {
-      mediaRoot: 'uploads',
       publicFolder: 'public',
+      mediaRoot: 'uploads',
     },
   },
   schema: {
     collections: [
       {
-        label: 'Pages',
         name: 'page',
+        label: 'Pages',
         path: 'content/pages',
-        fields: [
-          {
-            label: 'Title',
-            name: 'title',
-            type: 'string',
-            isTitle: true,
-            required: true,
-          },
-          {
-            label: 'Body',
-            name: 'body',
-            type: 'rich-text',
-            isBody: true,
-          },
-        ],
+        format: 'mdx',
         ui: {
+          router: (props) => {
+            if (props.document._sys.filename === 'home') {
+              return '/';
+            } else {
+              return `/${props.document._sys.filename}`;
+            }
+          },
           filename: {
             slugify: (values) => {
               return slugify(values.title);
             },
           },
+          beforeSubmit: async ({ values }: { values: Record<string, any> }) => {
+            return await addImagesDimensions(values);
+          },
         },
-      },
-      {
-        label: 'Categories',
-        name: 'category',
-        path: 'content/categories',
         fields: [
+          { name: 'title', label: 'Title', type: 'string', isTitle: true, required: true },
           {
-            label: 'Title',
-            name: 'title',
-            type: 'string',
-            isTitle: true,
-            required: true,
+            name: 'blocks',
+            label: 'Blocks',
+            type: 'object',
+            list: true,
+            templates: [
+              {
+                name: 'hero',
+                label: 'Hero',
+                ui: {
+                  itemProps: (item) => {
+                    return { label: `Hero: ${item.title}` };
+                  },
+                  defaultItem: {
+                    title: 'Hero title',
+                  },
+                },
+                fields: [
+                  { name: 'title', label: 'Title', type: 'string', required: true },
+                  {
+                    name: 'description',
+                    label: 'Description',
+                    type: 'rich-text',
+                    templates: richTextTemplates,
+                  },
+                  {
+                    name: 'links',
+                    label: 'Links',
+                    type: 'object',
+                    list: true,
+                    ui: {
+                      itemProps: (item) => {
+                        return { label: item.label };
+                      },
+                    },
+                    fields: [
+                      { name: 'href', label: 'Href', type: 'string', required: true },
+                      { name: 'label', label: 'Label', type: 'string', required: true },
+                      {
+                        name: 'style',
+                        label: 'Style',
+                        type: 'string',
+                        options: ['primary', 'secondary'],
+                        required: true,
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                name: 'featureList',
+                label: 'Feature-List',
+                ui: {
+                  itemProps: (item) => {
+                    return { label: `Feature-List: ${item.title}` };
+                  },
+                  defaultItem: {
+                    title: 'Feature-List title',
+                  },
+                },
+                fields: [
+                  { name: 'title', label: 'Title', type: 'string', required: true },
+                  {
+                    name: 'description',
+                    label: 'Description',
+                    type: 'rich-text',
+                    templates: richTextTemplates,
+                  },
+                  {
+                    name: 'feature',
+                    label: 'Feature',
+                    type: 'object',
+                    list: true,
+                    ui: {
+                      itemProps: (item) => {
+                        return { label: item.title };
+                      },
+                      defaultItem: {
+                        title: 'Feature title',
+                        description: 'Feature description',
+                      },
+                    },
+                    fields: [
+                      { name: 'title', label: 'Title', type: 'string', required: true },
+                      {
+                        name: 'description',
+                        label: 'Description',
+                        type: 'string',
+                        ui: {
+                          component: 'textarea',
+                        },
+                      },
+                      ...imageFields,
+                    ],
+                  },
+                ],
+              },
+              {
+                name: 'postList',
+                label: 'Post-List',
+                ui: {
+                  itemProps: (item) => {
+                    return { label: `Post-List: ${item.title}` };
+                  },
+                  defaultItem: {
+                    title: 'Post-List title',
+                    hideTitle: false,
+                  },
+                },
+                fields: [
+                  { name: 'title', label: 'Title', type: 'string', isTitle: true, required: true },
+                  { name: 'hideTitle', label: 'Hide Title?', type: 'boolean' },
+                  {
+                    name: 'description',
+                    label: 'Description',
+                    type: 'rich-text',
+                    templates: richTextTemplates,
+                  },
+                ],
+              },
+            ],
           },
         ],
-        ui: {
-          filename: {
-            slugify: (values) => {
-              return slugify(values.title);
-            },
-          },
-        },
       },
       {
-        label: 'Posts',
-        name: 'post',
-        path: 'content/posts',
-        defaultItem: {
-          title: 'Default title',
+        name: 'navigation',
+        label: 'Navigation',
+        path: 'content/navigation',
+        format: 'md',
+        ui: {
+          allowedActions: {
+            create: false,
+            delete: false,
+          },
+          global: true /* Prioritize it back in the side-bar of the detail pages admin */,
         },
         fields: [
           {
-            label: 'Title',
-            name: 'title',
-            type: 'string',
-            isTitle: true,
-            required: true,
-          },
-          {
-            label: 'Category',
-            name: 'category',
-            type: 'reference',
-            collections: ['category'],
-          },
-          {
-            label: 'Date',
-            name: 'date',
-            type: 'datetime',
+            name: 'links',
+            label: 'Links',
+            type: 'object',
+            list: true,
             ui: {
+              itemProps: (item) => {
+                return { label: item.label };
+              },
+            },
+            fields: [
+              { name: 'label', label: 'Label', type: 'string', required: true },
+              { name: 'link', label: 'Link', type: 'string', required: true },
+            ],
+          },
+        ],
+      },
+      {
+        name: 'category',
+        label: 'Categories',
+        path: 'content/categories',
+        ui: {
+          filename: {
+            slugify: (values) => {
+              return slugify(values.title);
+            },
+          },
+        },
+        fields: [
+          {
+            name: 'title',
+            label: 'Title',
+            type: 'string',
+            isTitle: true,
+            required: true,
+          },
+        ],
+      },
+      {
+        name: 'post',
+        label: 'Posts',
+        path: 'content/posts',
+        format: 'mdx',
+        defaultItem: () => {
+          return {
+            createdAt: new Date(),
+            published: true,
+          };
+        },
+        ui: {
+          router: (props) => {
+            return `${postRoute}/${props.document._sys.filename}`;
+          },
+          filename: {
+            slugify: (values) => {
+              return slugify(values.title);
+            },
+          },
+          beforeSubmit: async ({ values }: { values: Record<string, any> }) => {
+            const valuesWithImageDimensions = await addImagesDimensions(values);
+
+            return {
+              ...valuesWithImageDimensions,
+              updatedAt: new Date(),
+            };
+          },
+        },
+        fields: [
+          { name: 'title', label: 'Title', type: 'string', isTitle: true, required: true },
+          {
+            name: 'createdAt',
+            label: 'Created at',
+            type: 'datetime',
+            required: true,
+            ui: {
+              dateFormat: 'MMMM DD YYYY',
               timeFormat: 'HH:mm',
             },
           },
           {
-            label: 'Disabled',
-            name: 'disabled',
+            name: 'updatedAt',
+            label: 'Updated at',
+            type: 'datetime',
+            ui: {
+              dateFormat: 'MMMM DD YYYY',
+              timeFormat: 'HH:mm',
+            },
+          },
+          {
+            name: 'published',
+            label: 'Published',
             type: 'boolean',
           },
-          { label: 'Image', name: 'image', type: 'image' },
           {
-            label: 'Body',
-            name: 'body',
-            type: 'rich-text',
-            isBody: true,
+            name: 'category',
+            label: 'Category',
+            type: 'reference',
+            collections: ['category'],
+            required: true,
           },
-          {
-            label: 'Options',
-            name: 'options',
-            type: 'object',
-            fields: [
-              {
-                label: 'Multiple select list',
-                name: 'listMultiple',
-                type: 'string',
-                list: true,
-                options: [
-                  {
-                    label: 'Value 1',
-                    value: 'value-1',
-                  },
-                  {
-                    label: 'Value 2',
-                    value: 'value-2',
-                  },
-                ],
-              },
-              {
-                label: 'Single select list',
-                name: 'listSingle',
-                type: 'string',
-                options: [
-                  {
-                    label: 'Value 1',
-                    value: 'value-1',
-                  },
-                  {
-                    label: 'Value 2',
-                    value: 'value-2',
-                  },
-                ],
-              },
-              { label: 'Number', name: 'number', type: 'number' },
-            ],
-          },
-          {
-            label: 'Objects',
-            name: 'objects',
-            type: 'object',
-            list: true,
-            fields: [
-              {
-                label: 'Title',
-                name: 'title',
-                type: 'string',
-              },
-              {
-                label: 'Description',
-                name: 'description',
-                type: 'string',
-                ui: {
-                  component: 'textarea',
-                },
-              },
-            ],
-            ui: {
-              itemProps: (item) => {
-                return { label: item?.title }; // Set the title on the overview
-              },
-              defaultItem: {
-                title: 'Default title',
-                description: 'Default description',
-              },
-            },
-          },
+          { name: 'body', label: 'Body', type: 'rich-text', templates: richTextTemplates },
+          ...imageFields,
         ],
-        ui: {
-          router: ({ document }) => `/blog/${document._sys.filename}`,
-          filename: {
-            slugify: (values) => {
-              return slugify(values.title);
-            },
-          },
-        },
       },
     ],
   },

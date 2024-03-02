@@ -1,4 +1,6 @@
-import ActiveLink from '@/components/core/ActiveLink';
+import ActiveLink from '@/components/ui/ActiveLink';
+
+/* to remove */
 import { routes } from '@/routes';
 
 export default function MainNav() {

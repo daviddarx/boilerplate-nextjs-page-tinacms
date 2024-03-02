@@ -32,12 +32,20 @@ const config: Config = {
       80: '5rem', // 80px
       96: '6rem', // 96px
       120: '7.5rem', // 120px
-    },
-    extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
+      'spacer-8': 'var(--spacer-8)',
+      'spacer-12': 'var(--spacer-12)',
+      'spacer-16': 'var(--spacer-16)',
+      'spacer-20': 'var(--spacer-20)',
+      'spacer-24': 'var(--spacer-24)',
+      'spacer-32': 'var(--spacer-32)',
+      'spacer-40': 'var(--spacer-40)',
+      'spacer-48': 'var(--spacer-48)',
+      'spacer-56': 'var(--spacer-56)',
+      'spacer-64': 'var(--spacer-64)',
+      'spacer-80': 'var(--spacer-80)',
+      'spacer-96': 'var(--spacer-96)',
+      'spacer-120': 'var(--spacer-120)',
+      gutter: 'var(--gutter)',
     },
   },
   plugins: [],

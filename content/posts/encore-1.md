@@ -1,4 +1,0 @@
----
-title: Encore 1
----
-
