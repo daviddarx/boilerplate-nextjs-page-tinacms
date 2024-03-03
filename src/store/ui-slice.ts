@@ -19,7 +19,6 @@ export const uiSlice = createSlice({
   },
   reducers: {
     setSystem: (state, action) => {
-      console.log('set system', action.payload);
       state.system = action.payload;
     },
   },
