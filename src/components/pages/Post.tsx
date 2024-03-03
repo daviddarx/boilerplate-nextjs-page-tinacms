@@ -1,3 +1,4 @@
+import Metas from '@/components/layout/Metas';
 import CustomMarkdown from '@/components/ui/CustomMarkdown';
 import { PostResult } from '@/types/';
 import { formatDate } from '@/utils/core';
@@ -11,6 +12,7 @@ export default function Post(props: PostResult) {
 
   return (
     <div>
+      <Metas title={post.title} />
       <header className='text-container'>
         <h1 data-tina-field={tinaField(post, 'title')} className='h2'>
           {post.title}
