@@ -28,7 +28,7 @@ export default function PostList(props: {
         )}
       </div>
 
-      {posts && posts?.length > 0 && (
+      {posts && posts?.length > 0 && props.filterProps && (
         <div className='mt-gutter'>
           <ul className='flex flex-wrap gap-8'>
             {props.filterProps.map((filter, i) => {

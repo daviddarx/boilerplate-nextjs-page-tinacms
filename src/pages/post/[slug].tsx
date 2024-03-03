@@ -1,17 +1,19 @@
-import Layout from '@/components/layout/Layout';
+import PageWrapper from '@/components/layout/PageWrapper';
 import Post from '@/components/pages/Post';
 import client from '@/tina/client';
 import { PostResult } from '@/types';
 
-export default function BlogPage({ postResult }: { postResult: PostResult }) {
+export default function BlogPage({ postProps }: { postProps: PostResult }) {
   return (
-    <Layout>
-      <Post {...postResult} />
-    </Layout>
+    <PageWrapper>
+      <Post {...postProps} />
+    </PageWrapper>
   );
 }
 
 export const getStaticProps = async ({ params }: { params: { slug: string } }) => {
+  const navigationResult = await client.queries.navigation({ relativePath: 'navigation.md' });
+
   let postResult: PostResult;
 
   try {
@@ -24,7 +26,8 @@ export const getStaticProps = async ({ params }: { params: { slug: string } }) =
 
   return {
     props: {
-      postResult: postResult,
+      navigationProps: navigationResult,
+      postProps: postResult,
     },
     revalidate: 10,
   };

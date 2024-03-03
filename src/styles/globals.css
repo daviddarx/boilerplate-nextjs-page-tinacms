@@ -37,6 +37,11 @@
 }
 
 @layer base {
+  html,
+  body {
+    @apply h-full w-full;
+  }
+
   body {
     @apply text-base lg:text-xl;
   }
@@ -190,7 +195,7 @@
     }
 
     & blockquote {
-      @apply p-spacer-20 rounded-lg bg-gray-100;
+      @apply rounded-lg bg-gray-100 p-spacer-20;
     }
 
     & code {

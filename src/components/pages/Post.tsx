@@ -1,4 +1,3 @@
-import Footer from '@/components/layout/Footer';
 import CustomMarkdown from '@/components/ui/CustomMarkdown';
 import { PostResult } from '@/types/';
 import { formatDate } from '@/utils/core';
@@ -38,7 +37,6 @@ export default function Post(props: PostResult) {
           </div>
         )}
       </div>
-      <Footer />
     </div>
   );
 }

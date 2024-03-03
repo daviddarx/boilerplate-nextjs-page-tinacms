@@ -1,4 +1,4 @@
-import Layout from '@/components/layout/Layout';
+import PageWrapper from '@/components/layout/PageWrapper';
 import Page from '@/components/pages/Page';
 import client from '@/tina/client';
 import { CategoryFilter } from '@/tina/types';
@@ -14,18 +14,26 @@ export default function PageComponent({
   filterProps?: PostsFilter[];
 }) {
   return (
-    <Layout>
+    <PageWrapper>
       <Page pageProps={pageProps} postsProps={postsProps} filterProps={filterProps} />
-    </Layout>
+    </PageWrapper>
   );
 }
 
 export const getStaticProps = async ({ params }: { params: { slug?: string[] } }) => {
+  const navigationResult = await client.queries.navigation({ relativePath: 'navigation.md' });
+
   let pageResult: PageResult;
   let hasPostListBlock: boolean | undefined;
   let pageMdPath = params.slug ? params.slug[0] : 'home';
   let postsResult: PostsResult | null = null;
   let postsFilters: PostsFilter[] | null = null;
+
+  if (pageMdPath === '_next') {
+    return {
+      notFound: true,
+    }; /* debug dev mode error */
+  }
 
   try {
     pageResult = await client.queries.page({
@@ -84,6 +92,7 @@ export const getStaticProps = async ({ params }: { params: { slug?: string[] } }
 
   return {
     props: {
+      navigationProps: { ...navigationResult },
       pageProps: { ...pageResult },
       postsProps: { ...postsResult },
       filterProps: postsFilters,
