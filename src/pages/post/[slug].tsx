@@ -17,8 +17,9 @@ export const getStaticProps = async ({ params }: { params: { slug: string } }) =
   try {
     postResult = await client.queries.post({ relativePath: `${params.slug}.mdx` });
   } catch (error) {
-    //TODO: manage 404
-    return false;
+    return {
+      notFound: true,
+    };
   }
 
   return {

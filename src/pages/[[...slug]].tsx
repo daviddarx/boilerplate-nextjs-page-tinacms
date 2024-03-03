@@ -35,8 +35,9 @@ export const getStaticProps = async ({ params }: { params: { slug?: string[] } }
       (block) => block?.__typename === 'PageBlocksPostList',
     );
   } catch (error) {
-    //TODO: manage 404
-    return false;
+    return {
+      notFound: true,
+    };
   }
 
   if (hasPostListBlock) {

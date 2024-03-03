@@ -20,7 +20,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@/tina/*": ["./tina/__generated__/*"]
+      "@/tina/*": ["./tina/__generated__/*"],
+      "@/content/*": ["./content/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
