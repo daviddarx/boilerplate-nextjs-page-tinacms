@@ -71,7 +71,7 @@ export default function Layout({
 
   const handleExitComplete = () => {
     /**
-     * If an ActiveLink disabled the scroll to top on page change,
+     * If an PageLink disabled the scroll to top on page change,
      * just enable it again for the next page change, with a small
      * delay to wait for the motionVariants to be accordingly updated
      * in PageWrapper.

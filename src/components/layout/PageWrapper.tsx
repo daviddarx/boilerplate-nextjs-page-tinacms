@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 /**
  * Only provide page transition when the scroll
- * to top on page change wasn't disabled by a ActiveLink
+ * to top on page change wasn't disabled by a PageLink
  */
 const motionVariants = {
   initial: (scrollToTopOnPageChange: boolean) => {

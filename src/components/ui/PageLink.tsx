@@ -1,23 +1,23 @@
-/* based on https://github.com/vercel/next.js/blob/canary/examples/active-class-name/components/ActiveLink.tsx */
+/* based on https://github.com/vercel/next.js/blob/canary/examples/active-class-name/components/PageLink.tsx */
 import { uiActions } from '@/store';
 import Link, { LinkProps } from 'next/link';
 import { useRouter } from 'next/router';
 import React, { PropsWithChildren, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-type ActiveLinkProps = LinkProps & {
+type PageLinkProps = LinkProps & {
   className?: string;
   activeClassName?: string;
   scrollToTop?: boolean;
 };
 
-const ActiveLink = ({
+const PageLink = ({
   children,
   activeClassName = '',
   className = '',
-  scrollToTop = false,
+  scrollToTop = true,
   ...props
-}: PropsWithChildren<ActiveLinkProps>) => {
+}: PropsWithChildren<PageLinkProps>) => {
   const { asPath, isReady } = useRouter();
   const [computedClassName, setComputedClassName] = useState(className);
   const dispatch = useDispatch();
@@ -52,4 +52,4 @@ const ActiveLink = ({
   );
 };
 
-export default ActiveLink;
+export default PageLink;

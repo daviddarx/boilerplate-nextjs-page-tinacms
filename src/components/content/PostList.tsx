@@ -1,5 +1,5 @@
-import ActiveLink from '@/components/ui/ActiveLink';
 import CustomMarkdown from '@/components/ui/CustomMarkdown';
+import PageLink from '@/components/ui/PageLink';
 import { PageBlocksPostList } from '@/tina/types';
 import { PostsFilter, PostsResult } from '@/types';
 import { formatDate } from '@/utils/core';
@@ -34,7 +34,7 @@ export default function PostList(props: {
             {props.filterProps.map((filter, i) => {
               return (
                 <li key={i}>
-                  <ActiveLink
+                  <PageLink
                     href={filter.url}
                     className={classNames('button', {
                       'button--primary': filter.active,
@@ -42,7 +42,7 @@ export default function PostList(props: {
                     scrollToTop={false}
                   >
                     {filter.label}
-                  </ActiveLink>
+                  </PageLink>
                 </li>
               );
             })}
@@ -58,17 +58,16 @@ export default function PostList(props: {
 
               return (
                 <li key={post._sys.filename} className='border-t border-black'>
-                  <ActiveLink
+                  <PageLink
                     href={`${postRoute}/${post._sys.filename}`}
                     className='flex flex-col gap-8 py-gutter lg:flex-row lg:items-center lg:justify-between lg:gap-32'
-                    scrollToTop={true}
                   >
                     <h3 data-tina-field={tinaField(post, 'title')}>{post.title}</h3>
                     <div className='flex gap-16'>
                       <span className='font-bold uppercase'>{post.category.title}</span> –
                       <span>{formatDate(post.createdAt)}</span>
                     </div>
-                  </ActiveLink>
+                  </PageLink>
                 </li>
               );
             })}

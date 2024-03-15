@@ -1,4 +1,4 @@
-import ActiveLink from '@/components/ui/ActiveLink';
+import PageLink from '@/components/ui/PageLink';
 import { NavigationResult } from '@/types';
 import ease from '@/utils/eases';
 import { motion } from 'framer-motion';
@@ -21,14 +21,9 @@ export default function Navigation(props: NavigationResult) {
               data-tina-field={link && tinaField(link, 'label')}
               className='relative'
             >
-              <ActiveLink
-                href={link!.link}
-                className='button'
-                activeClassName='button--primary'
-                scrollToTop={true}
-              >
+              <PageLink href={link!.link} className='button' activeClassName='button--primary'>
                 {link?.label}
-              </ActiveLink>
+              </PageLink>
 
               {path.split('/')[1] === link!.link.split('/')[1] && (
                 <motion.span
