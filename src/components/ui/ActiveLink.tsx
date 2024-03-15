@@ -6,14 +6,14 @@ import React, { PropsWithChildren, useEffect, useState } from 'react';
 type ActiveLinkProps = LinkProps & {
   className?: string;
   activeClassName?: string;
-  scroll?: boolean;
+  scrollToTop?: boolean;
 };
 
 const ActiveLink = ({
   children,
   activeClassName = '',
   className = '',
-  scroll = false,
+  scrollToTop = false,
   ...props
 }: PropsWithChildren<ActiveLinkProps>) => {
   const { asPath, isReady } = useRouter();
@@ -37,7 +37,7 @@ const ActiveLink = ({
   }, [asPath, isReady, props.as, props.href, activeClassName, className, computedClassName]);
 
   return (
-    <Link scroll={scroll} className={computedClassName} {...props}>
+    <Link scroll={scrollToTop} className={computedClassName} {...props}>
       {children}
     </Link>
   );

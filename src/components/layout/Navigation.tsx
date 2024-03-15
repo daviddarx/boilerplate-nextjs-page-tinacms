@@ -25,7 +25,7 @@ export default function Navigation(props: NavigationResult) {
                 href={link!.link}
                 className='button'
                 activeClassName='button--primary'
-                scroll={true}
+                scrollToTop={true}
               >
                 {link?.label}
               </ActiveLink>

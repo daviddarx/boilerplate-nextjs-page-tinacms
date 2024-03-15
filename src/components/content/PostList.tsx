@@ -1,10 +1,10 @@
+import ActiveLink from '@/components/ui/ActiveLink';
 import CustomMarkdown from '@/components/ui/CustomMarkdown';
 import { PageBlocksPostList } from '@/tina/types';
 import { PostsFilter, PostsResult } from '@/types';
 import { formatDate } from '@/utils/core';
 import { postRoute } from '@/utils/tina';
 import classNames from 'classnames';
-import Link from 'next/link';
 import { tinaField, useTina } from 'tinacms/dist/react';
 
 export default function PostList(props: {
@@ -34,15 +34,15 @@ export default function PostList(props: {
             {props.filterProps.map((filter, i) => {
               return (
                 <li key={i}>
-                  <Link
+                  <ActiveLink
                     href={filter.url}
                     className={classNames('button', {
                       'button--primary': filter.active,
                     })}
-                    scroll={false}
+                    scrollToTop={false}
                   >
                     {filter.label}
-                  </Link>
+                  </ActiveLink>
                 </li>
               );
             })}
@@ -58,16 +58,17 @@ export default function PostList(props: {
 
               return (
                 <li key={post._sys.filename} className='border-t border-black'>
-                  <Link
+                  <ActiveLink
                     href={`${postRoute}/${post._sys.filename}`}
                     className='flex flex-col gap-8 py-gutter lg:flex-row lg:items-center lg:justify-between lg:gap-32'
+                    scrollToTop={true}
                   >
                     <h3 data-tina-field={tinaField(post, 'title')}>{post.title}</h3>
                     <div className='flex gap-16'>
                       <span className='font-bold uppercase'>{post.category.title}</span> –
                       <span>{formatDate(post.createdAt)}</span>
                     </div>
-                  </Link>
+                  </ActiveLink>
                 </li>
               );
             })}
