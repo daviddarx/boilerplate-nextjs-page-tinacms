@@ -43,3 +43,5 @@ export function getSystem() {
     };
   }
 }
+
+export const delayBeforeScrollRestoration = 50;

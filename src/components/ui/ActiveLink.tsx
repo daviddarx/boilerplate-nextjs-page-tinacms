@@ -1,7 +1,9 @@
 /* based on https://github.com/vercel/next.js/blob/canary/examples/active-class-name/components/ActiveLink.tsx */
+import { uiActions } from '@/store';
 import Link, { LinkProps } from 'next/link';
 import { useRouter } from 'next/router';
 import React, { PropsWithChildren, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 type ActiveLinkProps = LinkProps & {
   className?: string;
@@ -18,6 +20,7 @@ const ActiveLink = ({
 }: PropsWithChildren<ActiveLinkProps>) => {
   const { asPath, isReady } = useRouter();
   const [computedClassName, setComputedClassName] = useState(className);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isReady) {
@@ -36,8 +39,14 @@ const ActiveLink = ({
     }
   }, [asPath, isReady, props.as, props.href, activeClassName, className, computedClassName]);
 
+  const handleClick = () => {
+    if (scrollToTop === false) {
+      dispatch(uiActions.setScrollToTopOnPageChange(false));
+    }
+  };
+
   return (
-    <Link scroll={false} className={computedClassName} {...props}>
+    <Link onClick={handleClick} scroll={false} className={computedClassName} {...props}>
       {children}
     </Link>
   );
