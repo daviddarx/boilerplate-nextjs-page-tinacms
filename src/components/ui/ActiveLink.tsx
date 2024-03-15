@@ -37,7 +37,7 @@ const ActiveLink = ({
   }, [asPath, isReady, props.as, props.href, activeClassName, className, computedClassName]);
 
   return (
-    <Link scroll={scrollToTop} className={computedClassName} {...props}>
+    <Link scroll={false} className={computedClassName} {...props}>
       {children}
     </Link>
   );
