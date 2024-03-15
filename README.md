@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) (page router) and using [TinaCMS](https://github.com/tinacms/tinacms) (Tina Cloud).
 
+## Preview
+
+https://boilerplate-nextjs-page-tinacms.vercel.app
+
 ## Getting Started
 
 First, run the development server:
@@ -22,6 +26,6 @@ Open [http://localhost:3000/admin/](http://localhost:3000/admin/) to see the adm
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/) from the creators of Next.js.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fdaviddarx%2Fboilerplate-nextjs-tinacms&env=TINA_CLIENT_ID,TINA_TOKEN,VERCEL_GIT_COMMIT_REF&envDescription=API%20Keys%20for%20Tina%20Cloud)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fdaviddarx%2Fboilerplate-nextjs-page-tinacms&env=TINA_CLIENT_ID,TINA_TOKEN,VERCEL_GIT_COMMIT_REF&envDescription=API%20Keys%20for%20Tina%20Cloud)
