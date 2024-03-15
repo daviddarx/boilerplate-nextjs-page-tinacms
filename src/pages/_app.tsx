@@ -1,13 +1,16 @@
 import Layout from '@/components/layout/Layout';
-import store from '@/store/';
-import { uiActions } from '@/store/';
+import store, { uiActions } from '@/store';
 import '@/styles/globals.css';
 import { getSystem } from '@/utils/core';
 import type { AppProps } from 'next/app';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { Provider } from 'react-redux';
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+  const pageKey = router.asPath;
+
   useEffect(() => {
     const system = getSystem();
 
@@ -25,7 +28,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <Layout {...pageProps}>
-        <Component {...pageProps} />
+        <Component key={pageKey} {...pageProps} />
       </Layout>
     </Provider>
   );

@@ -1,12 +1,12 @@
-import Link from 'next/link';
+import ActiveLink from '@/components/ui/ActiveLink';
 
 export default function Header() {
   return (
     <header>
       <h2 className='h1 p-gutter lg:fixed lg:left-0 lg:top-0'>
-        <Link href='/' scroll={true}>
+        <ActiveLink href='/' scrollToTop={true}>
           Logo
-        </Link>
+        </ActiveLink>
       </h2>
     </header>
   );
